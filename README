@@ -1,0 +1,13 @@
+This demo application is to demonstrate how to use the interface of
+IVI Connection Manager. The demo looks ugly and it uses technology you
+propably don't wannt to use in a car.
+
+- Run
+    $ python main.py
+
+- Dependencies:
+    pygtk
+    pywebkitgtk
+    pygst
+
+    icons: http://www.oxygen-icons.org
