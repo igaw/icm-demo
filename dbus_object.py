@@ -35,6 +35,14 @@ class interface_handler():
         self._interface_cb = interface_cb
         self._proxy = None
 
+    def trigger_update_signal(self):
+        self._mutex.acquire()
+        
+        for key, value in self._attr.items():
+            self._sender.notify(key, value)
+        
+        self._mutex.release()
+
     def update_properties(self):
         self._proxy = self._bus.get_object(self._dbus_name, self._uid)
         properties.create(self._proxy, self._dbus_interface, self.property_changed)
@@ -120,6 +128,12 @@ class dbus_object(gobject.GObject):
             if ifs not in self._interfaces.keys():
                 self.add_interface(ifs)
 
+
+    def trigger_update_signal(self):
+        for key, value in self._interfaces.items():
+            #logging.debug("trigger update signal  for interface '%s'" % (key))
+            value.trigger_update_signal()
+        
     def add_interface(self, name):
         pass
 
